@@ -66,6 +66,36 @@ class Advanced_Calculator(QMainWindow):
 
         # --------------- ВТОРАЯ СТРОКА ЧИСЕЛ И ЗНАКОВ -----------
 
+        self.quadrad = QPushButton(self)
+        self.quadrad.move(0, 250)
+        self.quadrad.resize(100, 100)
+        self.quadrad.setText('x²')
+        # self.quadrad.clicked.connect()
+
+        self.num_4 = QPushButton(self)
+        self.num_4.move(100, 250)
+        self.num_4.resize(100, 100)
+        self.num_4.setText('4')
+        # self.num_4.clicked.connect()
+
+        self.num_5 = QPushButton(self)
+        self.num_5.move(200, 250)
+        self.num_5.resize(100, 100)
+        self.num_5.setText('5')
+        # self.num_5.clicked.connect()
+
+        self.num_6 = QPushButton(self)
+        self.num_6.move(300, 250)
+        self.num_6.resize(100, 100)
+        self.num_6.setText('6')
+        # self.num_6.clicked.connect()
+
+        self.multiply_button = QPushButton(self)
+        self.multiply_button.move(400, 250)
+        self.multiply_button.resize(100, 100)
+        self.multiply_button.setText('*')
+        # self.multiply_button.clicked.connect()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
