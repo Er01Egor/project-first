@@ -2,7 +2,7 @@ import sys
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLineEdit
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton
 
 
 class Advanced_Calculator(QMainWindow):
@@ -31,6 +31,40 @@ class Advanced_Calculator(QMainWindow):
         self.secondary_label.move(0, 50)
         self.secondary_label.resize(500, 20)
         self.secondary_label.setAlignment(Qt.AlignmentFlag.AlignRight)
+
+        # --------------- ПЕРВАЯ СТРОКА ЧИСЕЛ И ЗНАКОВ -----------
+
+        self.sqrt = QPushButton(self)
+        self.sqrt.move(0, 150)
+        self.sqrt.resize(100, 100)
+        self.sqrt.setText('√x')
+        # self.sqrt.clicked.connect()
+
+        self.num_7 = QPushButton(self)
+        self.num_7.move(100, 150)
+        self.num_7.resize(100, 100)
+        self.num_7.setText('7')
+        # self.num_7.clicked.connect()
+
+        self.num_8 = QPushButton(self)
+        self.num_8.move(200, 150)
+        self.num_8.resize(100, 100)
+        self.num_8.setText('8')
+        # self.num_8.clicked.connect()
+
+        self.num_9 = QPushButton(self)
+        self.num_9.move(300, 150)
+        self.num_9.resize(100, 100)
+        self.num_9.setText('9')
+        # self.num_9.clicked.connect()
+
+        self.divide_button = QPushButton(self)
+        self.divide_button.move(400, 150)
+        self.divide_button.resize(100, 100)
+        self.divide_button.setText('/')
+        # self.divide_button.clicked.connect()
+
+        # --------------- ВТОРАЯ СТРОКА ЧИСЕЛ И ЗНАКОВ -----------
 
 
 if __name__ == '__main__':
