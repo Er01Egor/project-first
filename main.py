@@ -128,6 +128,31 @@ class Advanced_Calculator(QMainWindow):
         self.substract_button.setText('-')
         # self.substract_button.clicked.connect()
 
+        # --------------- ЧЕТВЕРТАЯ СТРОКА ЧИСЕЛ И ЗНАКОВ -----------
+        self.clear_button = QPushButton(self)
+        self.clear_button.move(100, 450)
+        self.clear_button.resize(100, 100)
+        self.clear_button.setText('C')
+        # self.clear_button.clicked.connect()
+
+        self.num_0 = QPushButton(self)
+        self.num_0.move(200, 450)
+        self.num_0.resize(100, 100)
+        self.num_0.setText('0')
+        # self.num_0.clicked.connect()
+
+        self.clear_entry_button = QPushButton(self)
+        self.clear_entry_button.move(300, 450)
+        self.clear_entry_button.resize(100, 100)
+        self.clear_entry_button.setText('CE')
+        # self.clear_entry_button.clicked.connect()
+
+        self.add_button = QPushButton(self)
+        self.add_button.move(400, 450)
+        self.add_button.resize(100, 100)
+        self.add_button.setText('+')
+        # self.add_button.clicked.connect()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
