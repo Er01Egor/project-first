@@ -153,6 +153,25 @@ class Advanced_Calculator(QMainWindow):
         self.add_button.setText('+')
         # self.add_button.clicked.connect()
 
+        # --------------- ПЯТАЯ СТРОКА ЗНАКОВ -----------
+        self.float_point_button = QPushButton(self)
+        self.float_point_button.move(100, 550)
+        self.float_point_button.resize(100, 100)
+        self.float_point_button.setText('.')
+        # self.float_point_button.clicked.connect()
+
+        self.plus_minus_button = QPushButton(self)
+        self.plus_minus_button.move(200, 550)
+        self.plus_minus_button.resize(100, 100)
+        self.plus_minus_button.setText('±')
+        # self.plus_minus_button.clicked.connect()
+
+        self.equals_button = QPushButton(self)
+        self.equals_button.move(300, 550)
+        self.equals_button.resize(200, 100)
+        self.equals_button.setText('=')
+        # self.equals_button.clicked.connect()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
