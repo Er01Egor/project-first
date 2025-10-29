@@ -96,6 +96,38 @@ class Advanced_Calculator(QMainWindow):
         self.multiply_button.setText('*')
         # self.multiply_button.clicked.connect()
 
+        # --------------- ТРЕТЬЯ СТРОКА ЧИСЕЛ И ЗНАКОВ -----------
+
+        self.proc = QPushButton(self)
+        self.proc.move(0, 350)
+        self.proc.resize(100, 100)
+        self.proc.setText('%')
+        # self.proc.clicked.connect()
+
+        self.num_1 = QPushButton(self)
+        self.num_1.move(100, 350)
+        self.num_1.resize(100, 100)
+        self.num_1.setText('1')
+        # self.num_1.clicked.connect()
+
+        self.num_2 = QPushButton(self)
+        self.num_2.move(200, 350)
+        self.num_2.resize(100, 100)
+        self.num_2.setText('2')
+        # self.num_2.clicked.connect()
+
+        self.num_3 = QPushButton(self)
+        self.num_3.move(300, 350)
+        self.num_3.resize(100, 100)
+        self.num_3.setText('3')
+        # self.num_3.clicked.connect()
+
+        self.substract_button = QPushButton(self)
+        self.substract_button.move(400, 350)
+        self.substract_button.resize(100, 100)
+        self.substract_button.setText('-')
+        # self.substract_button.clicked.connect()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
