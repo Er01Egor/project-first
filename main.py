@@ -9,6 +9,9 @@ class Advanced_Calculator(QMainWindow):
     def __init__(self):
         super().__init__()
         self.initUI()
+        self.first_operand = None
+        self.operator = None
+        self.second_operand = None
 
     def initUI(self):
         self.setGeometry(450, 150, 500, 650)
@@ -171,6 +174,31 @@ class Advanced_Calculator(QMainWindow):
         self.equals_button.resize(200, 100)
         self.equals_button.setText('=')
         # self.equals_button.clicked.connect()
+
+    # Функция отвечает за добавление цифр к данному числу или за выбор операции
+
+    def append_to_string(self, value):
+        if value.isdigit() or value == '.':  # если цифра или точка
+            if self.operator is None:
+                if self.first_operand is None or self.first_operand == '0':
+                    self.first_operand = value if value != '.' else '0.'
+                else:
+                    if value == '.' and '.' in self.first_operand:
+                        return
+                    self.first_operand += value
+                self.main_label.setText(self.first_operand)
+            else:
+                if self.second_operand is None or self.second_operand == '0':
+                    self.second_operand = value if value != '.' else '0.'
+                else:
+                    if value == '.' and '.' in self.second_operand:
+                        return
+                    self.second_operand += value
+                self.main_label.setText(self.second_operand)
+        else:  # если оператор
+            if self.first_operand is None:
+                # если сначала ввели оператор
+                return
 
 
 if __name__ == '__main__':
