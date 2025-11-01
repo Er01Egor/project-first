@@ -200,6 +200,13 @@ class Advanced_Calculator(QMainWindow):
                 # если сначала ввели оператор
                 return
 
+            if self.second_operand is not None:
+                self.calculate_intermediate_result()
+
+            self.operator = value
+            display_text = str(self.first_operand) if self.first_operand is not None else '0'
+            self.secondary_label.setText(display_text + ' ' + str(self.operator))
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
