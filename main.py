@@ -394,6 +394,48 @@ class Advanced_Calculator(QMainWindow):
             self.main_label.setText('Ошибка')
             self.secondary_label.setText('Ошибка')
 
+    # Функция для вычисления классичиских операций (промежуточный результат)
+    def calculate_intermediate_result(self):
+        try:
+            # если есть какая нибудь ошибка то вычисления не продолжаются
+            if self.main_label.text() in ('Деление на ноль!', 'Ошибка', 'Отрицательное число'):
+                return
+
+            if self.first_operand is None or self.operator is None or self.second_operand is None:
+                return
+
+            num1 = float(self.first_operand)
+            num2 = float(self.second_operand)
+
+            if self.operator == '+':
+                result = num1 + num2
+            elif self.operator == '-':
+                result = num1 - num2
+            elif self.operator == '*':
+                result = num1 * num2
+            elif self.operator == '÷':
+                if num2 == 0:
+                    self.main_label.setText('Ошибка')
+                    self.secondary_label.setText('Деление на ноль!')
+                    return
+                result = num1 / num2
+            elif self.operator == '^':
+                result = num1 ** num2
+            else:
+                return
+
+            if result == int(result):
+                result = int(result)
+
+            self.first_operand = str(result)
+            self.second_operand = None
+            self.main_label.setText(str(result))
+            self.secondary_label.setText(str(num1) + ' ' + self.operator + ' ' + str(num2) + ' = ' + str(result))
+
+        except Exception as e:
+            self.main_label.setText('Ошибка')
+            self.secondary_label.setText(f'Ошибка: {e}')
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
