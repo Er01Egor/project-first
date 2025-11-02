@@ -23,11 +23,11 @@ class Advanced_Calculator(QMainWindow):
         self.main_label.setReadOnly(True)
         self.main_label.move(0, 50)
         self.main_label.resize(500, 100)
-        font = QFont("Arial", 30)
+        font = QFont('Arial', 30)
         self.main_label.setFont(font)
         self.main_label.setAlignment(Qt.AlignmentFlag.AlignRight)
 
-        # -----------------дополнительное поле (верхнее)---------------------
+        # -----------------дополнительное поле ввода (верхнее)---------------------
 
         self.secondary_label = QLineEdit(self)
         self.secondary_label.setReadOnly(True)
@@ -124,7 +124,7 @@ class Advanced_Calculator(QMainWindow):
         self.degree.setText('xⁿ')
         font = QFont('Arial', 20)
         self.degree.setFont(font)
-        # self.degree.clicked.connect()
+        self.degree.clicked.connect(lambda: self.append_to_string('^'))
 
         self.num_1 = QPushButton(self)
         self.num_1.move(100, 350)
@@ -198,6 +198,14 @@ class Advanced_Calculator(QMainWindow):
         self.add_button.clicked.connect(lambda: self.append_to_string('+'))
 
         # --------------- ПЯТАЯ СТРОКА ЗНАКОВ -----------
+
+        self.plus_minus_button = QPushButton(self)
+        self.plus_minus_button.move(0, 550)
+        self.plus_minus_button.resize(100, 100)
+        self.plus_minus_button.setText('±')
+        font = QFont('Arial', 20)
+        self.plus_minus_button.setFont(font)
+
         self.float_point_button = QPushButton(self)
         self.float_point_button.move(100, 550)
         self.float_point_button.resize(100, 100)
@@ -206,12 +214,12 @@ class Advanced_Calculator(QMainWindow):
         self.float_point_button.setFont(font)
         self.float_point_button.clicked.connect(lambda: self.append_to_string('.'))
 
-        self.plus_minus_button = QPushButton(self)
-        self.plus_minus_button.move(200, 550)
-        self.plus_minus_button.resize(100, 100)
-        self.plus_minus_button.setText('±')
+        self.backspace_button = QPushButton(self)
+        self.backspace_button.move(200, 550)
+        self.backspace_button.resize(100, 100)
+        self.backspace_button.setText('\u232b')  # изпользован unicode
         font = QFont('Arial', 20)
-        self.plus_minus_button.setFont(font)
+        self.backspace_button.setFont(font)
 
         self.equals_button = QPushButton(self)
         self.equals_button.move(300, 550)
@@ -222,7 +230,6 @@ class Advanced_Calculator(QMainWindow):
         self.equals_button.clicked.connect(self.calculate_result)
 
     # Функция отвечает за добавление цифр к данному числу или за выбор операции
-
     def append_to_string(self, value):
         if value.isdigit() or value == '.':  # если цифра или точка
             if self.operator is None:
@@ -246,6 +253,11 @@ class Advanced_Calculator(QMainWindow):
                 # если сначала ввели оператор
                 return
 
+            # если есть какая нибудь ошибка то вычисления не продолжаются
+            if self.main_label.text() in ('Деление на ноль!', 'Ошибка', 'Отрицательное число'):
+                self.clear_all()
+                return
+
             if self.second_operand is not None:
                 self.calculate_intermediate_result()
 
@@ -256,6 +268,10 @@ class Advanced_Calculator(QMainWindow):
     # Функция для работы с результатом
     def calculate_result(self):
         try:
+            # если есть какая нибудь ошибка то вычисления не продолжаются
+            if self.main_label.text() in ('Деление на ноль!', 'Ошибка', 'Отрицательное число'):
+                return
+
             if self.first_operand is None or self.operator is None or self.second_operand is None:
                 return
 
@@ -270,11 +286,12 @@ class Advanced_Calculator(QMainWindow):
                 result = num1 * num2
             elif self.operator == '÷':
                 if num2 == 0:
-                    self.main_label.setText('Деление на ноль!')
-                    self.secondary_label.setText('Ошибка')
-                    self.clear()
+                    self.main_label.setText('Ошибка')
+                    self.secondary_label.setText('Деление на ноль!')
                     return
                 result = num1 / num2
+            elif self.operator == '^':
+                result = num1 ** num2
             else:
                 return  # если нет такого оператора
 
@@ -291,7 +308,6 @@ class Advanced_Calculator(QMainWindow):
         except Exception as e:
             self.main_label.setText('Ошибка')
             self.secondary_label.setText(f'Ошибка: {e}')
-            self.clear()
 
 
 if __name__ == '__main__':
