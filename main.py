@@ -369,6 +369,31 @@ class Advanced_Calculator(QMainWindow):
             self.main_label.setText('Ошибка')
             self.secondary_label.setText('Ошибка')
 
+    # Функция для выражения числа с противоположным знаком
+    def plus_minus(self):
+        try:
+            # если есть какая нибудь ошибка то вычисления не продолжаются
+            if self.main_label.text() in ('Деление на ноль!', 'Ошибка', 'Отрицательное число'):
+                return
+
+            current_value_text = self.main_label.text()
+            if not current_value_text or current_value_text == 'Ошибка':
+                return
+
+            value = float(current_value_text)
+            result = -value
+            if result == int(result):
+                result = int(result)
+
+            self.main_label.setText(str(result))
+            if self.operator is None:
+                self.first_operand = str(result)
+            else:
+                self.second_operand = str(result)
+        except Exception:
+            self.main_label.setText('Ошибка')
+            self.secondary_label.setText('Ошибка')
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
