@@ -173,6 +173,7 @@ class Advanced_Calculator(QMainWindow):
         self.clear_button.setText('C')
         font = QFont('Arial', 20)
         self.clear_button.setFont(font)
+        self.clear_button.clicked.connect(self.clear_all)
 
         self.num_0 = QPushButton(self)
         self.num_0.move(200, 450)
@@ -188,6 +189,7 @@ class Advanced_Calculator(QMainWindow):
         self.clear_entry_button.setText('CE')
         font = QFont('Arial', 20)
         self.clear_entry_button.setFont(font)
+        self.clear_entry_button.clicked.connect(self.clear_entry)
 
         self.add_button = QPushButton(self)
         self.add_button.move(400, 450)
@@ -308,6 +310,36 @@ class Advanced_Calculator(QMainWindow):
         except Exception as e:
             self.main_label.setText('Ошибка')
             self.secondary_label.setText(f'Ошибка: {e}')
+
+    # Функция для удаления всех действий
+    def clear_all(self):
+        self.first_operand = None
+        self.operator = None
+        self.second_operand = None
+        self.main_label.setText('0')
+        self.secondary_label.clear()
+
+    # Функция для удаления посдеднего действия
+    def clear_entry(self):
+        # если есть какая нибудь ошибка то вычисления не продолжаются и все очистить
+        if self.main_label.text() in ('Деление на ноль!', 'Ошибка', 'Отрицательное число'):
+            self.clear_all()
+            return
+
+        if self.second_operand is not None:
+            self.second_operand = None
+            self.main_label.setText('0')
+        elif self.operator is not None:
+            self.operator = None
+            self.main_label.setText(str(self.first_operand) if self.first_operand is not None else '0')
+            self.secondary_label.clear()
+        elif self.first_operand is not None:
+            self.first_operand = None
+            self.main_label.setText('0')
+            self.secondary_label.clear()
+        else:
+            self.main_label.setText('0')
+            self.secondary_label.clear()
 
 
 if __name__ == '__main__':
