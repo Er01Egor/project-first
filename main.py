@@ -84,6 +84,7 @@ class Advanced_Calculator(QMainWindow):
         self.quadrad.setText('x²')
         font = QFont('Arial', 20)
         self.quadrad.setFont(font)
+        self.quadrad.clicked.connect(self.quad)
 
         self.num_4 = QPushButton(self)
         self.num_4.move(100, 250)
@@ -467,6 +468,35 @@ class Advanced_Calculator(QMainWindow):
         except Exception as e:
             self.main_label.setText('Ошибка')
             self.secondary_label.setText(f'Ошибка: {e}')
+
+
+
+    # Функция для возведения в квадрат
+    def quad(self):
+        try:
+            # если есть какая нибудь ошибка то вычисления не продолжаются
+            if self.main_label.text() in ('Деление на ноль!', 'Ошибка', 'Отрицательное число'):
+                return
+
+            current_value_text = self.main_label.text()
+            if not current_value_text or current_value_text == 'Ошибка':
+                return
+
+            value = float(current_value_text)
+            res = value * value
+
+            if res == int(res):
+                res = int(res)
+
+            self.secondary_label.setText(str(value) + '²')
+            self.main_label.setText(str(res))
+            self.first_operand = str(res)
+            self.operator = None
+            self.second_operand = None
+        except Exception as e:
+            self.main_label.setText('Ошибка')
+            self.secondary_label.setText(f'Ошибка: {e}')
+
 
 
 if __name__ == '__main__':
