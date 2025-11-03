@@ -1,5 +1,5 @@
 import sys
-
+from math import sqrt
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton
@@ -43,6 +43,7 @@ class Advanced_Calculator(QMainWindow):
         self.sqrt.setText('√x')
         font = QFont('Arial', 20)
         self.sqrt.setFont(font)
+        self.sqrt.clicked.connect(self.root)
 
         self.num_7 = QPushButton(self)
         self.num_7.move(100, 150)
@@ -431,6 +432,37 @@ class Advanced_Calculator(QMainWindow):
             self.second_operand = None
             self.main_label.setText(str(result))
             self.secondary_label.setText(str(num1) + ' ' + self.operator + ' ' + str(num2) + ' = ' + str(result))
+
+        except Exception as e:
+            self.main_label.setText('Ошибка')
+            self.secondary_label.setText(f'Ошибка: {e}')
+
+    # Функция для вычисления корня
+    def root(self):
+        try:
+            # если есть какая нибудь ошибка то вычисления не продолжаются
+            if self.main_label.text() in ('Деление на ноль!', 'Ошибка', 'Отрицательное число'):
+                return
+
+            current_value_text = self.main_label.text()
+            if not current_value_text or current_value_text == 'Ошибка':
+                return
+
+            value = float(current_value_text)
+            if value < 0:
+                self.main_label.setText('Ошибка')
+                self.secondary_label.setText('Отрицательное число')
+                return
+
+            res = sqrt(value)
+            if res == int(res):
+                res = int(res)
+
+            self.secondary_label.setText('√' + str(value))
+            self.main_label.setText(str(res))
+            self.first_operand = str(res)
+            self.operator = None
+            self.second_operand = None
 
         except Exception as e:
             self.main_label.setText('Ошибка')
