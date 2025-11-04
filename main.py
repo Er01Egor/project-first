@@ -225,6 +225,7 @@ class Advanced_Calculator(QMainWindow):
         self.backspace_button.setText('\u232b')  # изпользован unicode
         font = QFont('Arial', 20)
         self.backspace_button.setFont(font)
+        self.backspace_button.clicked.connect(self.delete_last_char)
 
         self.equals_button = QPushButton(self)
         self.equals_button.move(300, 550)
@@ -496,6 +497,33 @@ class Advanced_Calculator(QMainWindow):
         except Exception as e:
             self.main_label.setText('Ошибка')
             self.secondary_label.setText(f'Ошибка: {e}')
+
+
+
+    # Функция для удаления последнего символа
+    def delete_last_char(self):
+        # если есть какая нибудь ошибка то вычисления не продолжаются
+        if self.main_label.text() in ('Деление на ноль!', 'Ошибка', 'Отрицательное число'):
+            self.clear_all()
+            return
+
+        current_display = self.main_label.text()
+        if current_display == '0' or not current_display:
+            return
+
+        new_display = current_display[:-1]
+
+        if not new_display or (new_display == '-' and current_display == '-'):
+            new_display = '0'
+        elif new_display == '-' and current_display != '-':
+            pass
+
+        self.main_label.setText(new_display)
+
+        if self.operator is None:
+            self.first_operand = new_display
+        else:
+            self.second_operand = new_display
 
 
 
