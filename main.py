@@ -8,6 +8,20 @@ from PyQt6.QtWidgets import (
     QMessageBox, QMenu, QToolBar
 )
 
+style = """
+                QMainWindow {
+                    background-color: #1d1c21;
+                }
+                QPushButton {
+                    background-color: #4f18e7;
+
+                    color: white;
+                }
+                QPushButton:hover {
+                    background-color: #5d3eb1;
+                }
+            """
+
 
 class Advanced_Calculator(QMainWindow):
     def __init__(self):
@@ -16,6 +30,7 @@ class Advanced_Calculator(QMainWindow):
         self.first_operand = None
         self.operator = None
         self.second_operand = None
+        self.setStyleSheet(style)
 
     def initUI(self):
         self.setGeometry(450, 150, 500, 650)
