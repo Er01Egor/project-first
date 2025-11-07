@@ -67,6 +67,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.sqrt.setFont(font)
         self.sqrt.clicked.connect(self.root)
+        self.sqrt.setStyleSheet("""
+                                    QPushButton {
+                                         background-color: rgb(98, 49, 190);
+                                    }
+                                    QPushButton:hover {
+                                        background-color: rgb(67, 45, 109);
+                                    }
+
+                                """)
 
         self.num_7 = QPushButton(self)
         self.num_7.move(100, 150)
@@ -99,6 +108,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.divide_button.setFont(font)
         self.divide_button.clicked.connect(lambda: self.append_to_string('÷'))
+        self.divide_button.setStyleSheet("""
+                                   QPushButton {
+                                        background-color: rgb(98, 49, 190);
+                                   }
+                                   QPushButton:hover {
+                                       background-color: rgb(67, 45, 109);
+                                   }
+
+                               """)
 
         # --------------- ВТОРАЯ СТРОКА ЧИСЕЛ И ЗНАКОВ -----------
         self.quadrad = QPushButton(self)
@@ -108,6 +126,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.quadrad.setFont(font)
         self.quadrad.clicked.connect(self.quad)
+        self.quadrad.setStyleSheet("""
+                                   QPushButton {
+                                        background-color: rgb(98, 49, 190);
+                                   }
+                                   QPushButton:hover {
+                                       background-color: rgb(67, 45, 109);
+                                   }
+
+                               """)
 
         self.num_4 = QPushButton(self)
         self.num_4.move(100, 250)
@@ -140,6 +167,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.multiply_button.setFont(font)
         self.multiply_button.clicked.connect(lambda: self.append_to_string('*'))
+        self.multiply_button.setStyleSheet("""
+                                    QPushButton {
+                                         background-color: rgb(98, 49, 190);
+                                    }
+                                    QPushButton:hover {
+                                        background-color: rgb(67, 45, 109);
+                                    }
+
+                                """)
 
         # --------------- ТРЕТЬЯ СТРОКА ЧИСЕЛ И ЗНАКОВ -----------
 
@@ -150,6 +186,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.degree.setFont(font)
         self.degree.clicked.connect(lambda: self.append_to_string('^'))
+        self.degree.setStyleSheet("""
+                                    QPushButton {
+                                         background-color: rgb(98, 49, 190);
+                                    }
+                                    QPushButton:hover {
+                                        background-color: rgb(67, 45, 109);
+                                    }
+
+                                """)
 
         self.num_1 = QPushButton(self)
         self.num_1.move(100, 350)
@@ -182,6 +227,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.substract_button.setFont(font)
         self.substract_button.clicked.connect(lambda: self.append_to_string('-'))
+        self.substract_button.setStyleSheet("""
+                                    QPushButton {
+                                         background-color: rgb(98, 49, 190);
+                                    }
+                                    QPushButton:hover {
+                                        background-color: rgb(67, 45, 109);
+                                    }
+
+                                """)
 
         # --------------- ЧЕТВЕРТАЯ СТРОКА ЧИСЕЛ И ЗНАКОВ -----------
 
@@ -192,6 +246,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.proc.setFont(font)
         self.proc.clicked.connect(self.procent)
+        self.proc.setStyleSheet("""
+                                    QPushButton {
+                                         background-color: rgb(98, 49, 190);
+                                    }
+                                    QPushButton:hover {
+                                        background-color: rgb(67, 45, 109);
+                                    }
+
+                                """)
 
         self.clear_button = QPushButton(self)
         self.clear_button.move(100, 450)
@@ -224,6 +287,16 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.add_button.setFont(font)
         self.add_button.clicked.connect(lambda: self.append_to_string('+'))
+        self.add_button.setStyleSheet("""
+                                    QPushButton {
+                                         background-color: rgb(98, 49, 190);
+                                    }
+                                    QPushButton:hover {
+                                        background-color: rgb(67, 45, 109);
+                                    }
+
+                                """)
+
 
         # --------------- ПЯТАЯ СТРОКА ЗНАКОВ -----------
 
@@ -233,6 +306,15 @@ class Advanced_Calculator(QMainWindow):
         self.plus_minus_button.setText('±')
         font = QFont('Arial', 20)
         self.plus_minus_button.setFont(font)
+        self.plus_minus_button.setStyleSheet("""
+                                    QPushButton {
+                                         background-color: rgb(98, 49, 190);
+                                    }
+                                    QPushButton:hover {
+                                        background-color: rgb(67, 45, 109);
+                                    }
+
+                                """)
 
         self.float_point_button = QPushButton(self)
         self.float_point_button.move(100, 550)
@@ -241,6 +323,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.float_point_button.setFont(font)
         self.float_point_button.clicked.connect(lambda: self.append_to_string('.'))
+        self.float_point_button.setStyleSheet("""
+                                    QPushButton {
+                                         background-color: rgb(98, 49, 190);
+                                    }
+                                    QPushButton:hover {
+                                        background-color: rgb(67, 45, 109);
+                                    }
+
+                                """)
 
         self.backspace_button = QPushButton(self)
         self.backspace_button.move(200, 550)
