@@ -652,6 +652,11 @@ class Advanced_Calculator(QMainWindow):
     def _show_settings(self):
         QMessageBox.information(self, 'Настройки', 'Здесь будут настройки калькулятора.')
 
+    def _show_about_dialog(self):
+        QMessageBox.about(self, 'О программе Калькулятор',
+                          '<h2>Продвинутый Калькулятор (Advanced_Calculator)</h2>'
+                          '<p>Версия 1.0 (Alpha)</p>'
+                          '<p>Разработано с помощью PyQt6.</p>')
 
 
 if __name__ == '__main__':
