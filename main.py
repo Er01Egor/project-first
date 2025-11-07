@@ -1,8 +1,12 @@
 import sys
-from math import sqrt
+from math import sqrt, sin, cos, tan, log, exp, factorial
+
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton
+from PyQt6.QtGui import QFont, QAction
+from PyQt6.QtWidgets import (
+    QApplication, QLineEdit, QPushButton, QMainWindow,
+    QMessageBox, QMenu, QToolBar
+)
 
 
 class Advanced_Calculator(QMainWindow):
@@ -16,6 +20,10 @@ class Advanced_Calculator(QMainWindow):
     def initUI(self):
         self.setGeometry(450, 150, 500, 650)
         self.setWindowTitle('Калькулятор')
+
+        # ------------------ Бургер-меню (верхняя часть) -----------------
+
+        self._create_hamburger_menu()
 
         # ------------------ основное поле ввода (нижнее) -----------------
         self.main_label = QLineEdit(self)
@@ -470,8 +478,6 @@ class Advanced_Calculator(QMainWindow):
             self.main_label.setText('Ошибка')
             self.secondary_label.setText(f'Ошибка: {e}')
 
-
-
     # Функция для возведения в квадрат
     def quad(self):
         try:
@@ -498,8 +504,6 @@ class Advanced_Calculator(QMainWindow):
             self.main_label.setText('Ошибка')
             self.secondary_label.setText(f'Ошибка: {e}')
 
-
-
     # Функция для удаления последнего символа
     def delete_last_char(self):
         # если есть какая нибудь ошибка то вычисления не продолжаются
@@ -524,6 +528,126 @@ class Advanced_Calculator(QMainWindow):
             self.first_operand = new_display
         else:
             self.second_operand = new_display
+
+        # ------------------- ОТДЕЛ С МЕНЮ --------------------
+
+    def _create_hamburger_menu(self):
+        toolbar = QToolBar('Меню', self)
+        self.addToolBar(Qt.ToolBarArea.TopToolBarArea, toolbar)
+        toolbar.setMovable(False)
+
+        self.hamburger_button = QPushButton('☰', self)
+        self.hamburger_button.setFixedSize(40, 30)
+        self.hamburger_button.setStyleSheet("font-size: 20px; border: none; background-color: transparent;")
+        toolbar.addWidget(self.hamburger_button)
+
+        self.menu = QMenu(self)
+
+        action_history = QAction('История', self)
+        action_history.triggered.connect(self._show_history)
+        self.menu.addAction(action_history)
+
+        # Подменю для специельных вычислений
+        advanced_calc_menu = QMenu('Специальные функции', self)
+
+        action_sin = QAction('Синус (sin)', self)
+        action_sin.triggered.connect(lambda: self._perform_special_calc('sin'))
+        advanced_calc_menu.addAction(action_sin)
+
+        action_cos = QAction('Косинус (cos)', self)
+        action_cos.triggered.connect(lambda: self._perform_special_calc('cos'))
+        advanced_calc_menu.addAction(action_cos)
+
+        action_tan = QAction('Тангенс (tan)', self)
+        action_tan.triggered.connect(lambda: self._perform_special_calc('tan'))
+        advanced_calc_menu.addAction(action_tan)
+
+        advanced_calc_menu.addSeparator()
+
+        action_log = QAction('Натуральный логарифм (ln)', self)
+        action_log.triggered.connect(lambda: self._perform_special_calc('ln'))
+        advanced_calc_menu.addAction(action_log)
+
+        action_exp = QAction('Экспонента (e^x)', self)
+        action_exp.triggered.connect(lambda: self._perform_special_calc('exp'))
+        advanced_calc_menu.addAction(action_exp)
+
+        action_fact = QAction('Факториал (x!)', self)
+        action_fact.triggered.connect(lambda: self._perform_special_calc('fact'))
+        advanced_calc_menu.addAction(action_fact)
+
+        self.menu.addMenu(advanced_calc_menu)
+        # ----------------------------------------------------
+
+        self.menu.addSeparator()
+
+        action_settings = QAction('Настройки', self)
+        # action_settings.triggered.connect(self._show_settings)
+        self.menu.addAction(action_settings)
+
+        action_about = QAction('О программе', self)
+        # action_about.triggered.connect(self._show_about_dialog)
+        self.menu.addAction(action_about)
+
+        action_exit = QAction('Выход', self)
+        # action_exit.triggered.connect(self.close)
+        self.menu.addAction(action_exit)
+
+        self.hamburger_button.setMenu(self.menu)
+
+    # Функция для выполнения специальных вычислений
+    def _perform_special_calc(self, func_name):
+        try:
+            # если есть какая нибудь ошибка то вычисления не продолжаются
+            cur_val_text = self.main_label.text()
+            if not cur_val_text or cur_val_text == 'Ошибка':
+                QMessageBox.warning(self, 'Ошибка', 'Нечего вычислять или ошибка в текущем значении.')
+                return
+
+            value = float(cur_val_text)
+            result = 0
+
+            self.secondary_label.setText(f'{func_name}({value})')
+
+            if func_name == 'sin':
+                result = sin(value)
+            elif func_name == 'cos':
+                result = cos(value)
+            elif func_name == 'tan':
+                result = tan(value)
+            elif func_name == 'ln':
+                if value <= 0:
+                    raise ValueError('Логарифм определен только для положительных чисел.')
+                result = log(value)
+            elif func_name == 'exp':
+                result = exp(value)
+            elif func_name == 'fact':
+                if value < 0 or value != int(value):
+                    raise ValueError('Факториал определен только для неотрицательных целых чисел.')
+                result = factorial(int(value))
+            else:
+                QMessageBox.critical(self, 'Ошибка', f'Неизвестная функция: {func_name}')
+                return
+
+            if result == int(result):
+                result = int(result)
+
+            self.main_label.setText(str(result))
+            self.first_operand = str(result)
+            self.operator = None
+            self.second_operand = None
+
+        except ValueError as ve:
+            self.main_label.setText('Ошибка')
+            self.secondary_label.setText(f'Ошибка: {ve}')
+            QMessageBox.critical(self, 'Ошибка ввода', str(ve))
+        except Exception as e:
+            self.main_label.setText('Ошибка')
+            self.secondary_label.setText(f'Ошибка: {e}')
+            QMessageBox.critical(self, "Ошибка вычисления", f'Произошла ошибка при вычислении: {e}')
+
+    def _show_history(self):
+        QMessageBox.information(self, 'История', 'Здесь будет история вычислений.')
 
 
 
