@@ -582,7 +582,7 @@ class Advanced_Calculator(QMainWindow):
         self.menu.addSeparator()
 
         action_settings = QAction('Настройки', self)
-        # action_settings.triggered.connect(self._show_settings)
+        action_settings.triggered.connect(self._show_settings)
         self.menu.addAction(action_settings)
 
         action_about = QAction('О программе', self)
@@ -644,10 +644,13 @@ class Advanced_Calculator(QMainWindow):
         except Exception as e:
             self.main_label.setText('Ошибка')
             self.secondary_label.setText(f'Ошибка: {e}')
-            QMessageBox.critical(self, "Ошибка вычисления", f'Произошла ошибка при вычислении: {e}')
+            QMessageBox.critical(self, 'Ошибка вычисления', f'Произошла ошибка при вычислении: {e}')
 
     def _show_history(self):
         QMessageBox.information(self, 'История', 'Здесь будет история вычислений.')
+
+    def _show_settings(self):
+        QMessageBox.information(self, 'Настройки', 'Здесь будут настройки калькулятора.')
 
 
 
