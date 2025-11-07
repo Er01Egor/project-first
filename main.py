@@ -297,7 +297,6 @@ class Advanced_Calculator(QMainWindow):
 
                                 """)
 
-
         # --------------- ПЯТАЯ СТРОКА ЗНАКОВ -----------
 
         self.plus_minus_button = QPushButton(self)
@@ -306,6 +305,7 @@ class Advanced_Calculator(QMainWindow):
         self.plus_minus_button.setText('±')
         font = QFont('Arial', 20)
         self.plus_minus_button.setFont(font)
+        self.plus_minus_button.clicked.connect(self.plus_minus)
         self.plus_minus_button.setStyleSheet("""
                                     QPushButton {
                                          background-color: rgb(98, 49, 190);
