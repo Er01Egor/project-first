@@ -375,6 +375,16 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.equals_button.setFont(font)
         self.equals_button.clicked.connect(self.calculate_result)
+        self.equals_button.setStyleSheet("""
+                            QPushButton {
+                                 background-color: rgb(234, 125, 35);
+                            }
+                            QPushButton:hover {
+                                background-color: rgb(168, 95, 36);
+                            }
+
+
+                        """)
 
     # Функция отвечает за добавление цифр к данному числу или за выбор операции
     def append_to_string(self, value):
