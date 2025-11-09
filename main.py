@@ -354,7 +354,10 @@ class Advanced_Calculator(QMainWindow):
         if value.isdigit() or value == '.':  # если цифра или точка
             if self.operator is None:
                 if self.first_operand is None or self.first_operand == '0':
-                    self.first_operand = value if value != '.' else '0.'
+                    if value != '.':
+                        self.first_operand = value
+                    else:
+                        self.first_operand = '0.'
                 else:
                     if value == '.' and '.' in self.first_operand:
                         return
@@ -362,7 +365,10 @@ class Advanced_Calculator(QMainWindow):
                 self.main_label.setText(self.first_operand)
             else:
                 if self.second_operand is None or self.second_operand == '0':
-                    self.second_operand = value if value != '.' else '0.'
+                    if value != '.':
+                        self.second_operand = value
+                    else:
+                        self.second_operand = '0.'
                 else:
                     if value == '.' and '.' in self.second_operand:
                         return
@@ -382,7 +388,10 @@ class Advanced_Calculator(QMainWindow):
                 self.calculate_intermediate_result()
 
             self.operator = value
-            display_text = str(self.first_operand) if self.first_operand is not None else '0'
+            if self.first_operand is not None:
+                display_text = str(self.first_operand)
+            else:
+                display_text = '0'
             self.secondary_label.setText(display_text + ' ' + str(self.operator))
 
     # Функция для работы с результатом
@@ -449,7 +458,10 @@ class Advanced_Calculator(QMainWindow):
             self.main_label.setText('0')
         elif self.operator is not None:
             self.operator = None
-            self.main_label.setText(str(self.first_operand) if self.first_operand is not None else '0')
+            if self.first_operand is not None:
+                self.main_label.setText(str(self.first_operand))
+            else:
+                self.main_label.setText('0')
             self.secondary_label.clear()
         elif self.first_operand is not None:
             self.first_operand = None
@@ -497,8 +509,7 @@ class Advanced_Calculator(QMainWindow):
             if not current_value_text or current_value_text == 'Ошибка':
                 return
 
-            value = float(current_value_text)
-            result = -value
+            result = -float(current_value_text)
             if result == int(result):
                 result = int(result)
 
