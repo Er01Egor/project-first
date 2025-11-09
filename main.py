@@ -263,6 +263,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.clear_button.setFont(font)
         self.clear_button.clicked.connect(self.clear_all)
+        self.clear_button.setStyleSheet("""
+                                    QPushButton {
+                                        background-color: rgb(107, 163, 190);
+                                    }
+                                    QPushButton:hover {
+                                        background-color: rgb(60, 99, 119);
+                                    }
+
+                                """)
 
         self.num_0 = QPushButton(self)
         self.num_0.move(200, 450)
@@ -279,6 +288,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.clear_entry_button.setFont(font)
         self.clear_entry_button.clicked.connect(self.clear_entry)
+        self.clear_entry_button.setStyleSheet("""
+                                    QPushButton {
+                                         background-color: rgb(107, 163, 190);
+                                    }
+                                    QPushButton:hover {
+                                         background-color: rgb(60, 99, 119);
+                                    }
+
+                                """)
 
         self.add_button = QPushButton(self)
         self.add_button.move(400, 450)
@@ -340,6 +358,15 @@ class Advanced_Calculator(QMainWindow):
         font = QFont('Arial', 20)
         self.backspace_button.setFont(font)
         self.backspace_button.clicked.connect(self.delete_last_char)
+        self.backspace_button.setStyleSheet("""
+                                            QPushButton {
+                                                background-color: rgb(107, 163, 190);
+                                            }
+                                            QPushButton:hover {
+                                                background-color: rgb(60, 99, 119);
+                                            }
+
+                                        """)
 
         self.equals_button = QPushButton(self)
         self.equals_button.move(300, 550)
