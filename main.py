@@ -740,11 +740,11 @@ class Advanced_Calculator(QMainWindow):
         self.menu.addAction(action_settings)
 
         action_about = QAction('О программе', self)
-        # action_about.triggered.connect(self._show_about_dialog)
+        action_about.triggered.connect(self._show_about_dialog)
         self.menu.addAction(action_about)
 
         action_exit = QAction('Выход', self)
-        # action_exit.triggered.connect(self.close)
+        action_exit.triggered.connect(self.close)
         self.menu.addAction(action_exit)
 
         self.hamburger_button.setMenu(self.menu)
