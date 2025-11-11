@@ -2,7 +2,7 @@ import sys
 from math import sqrt, sin, cos, tan, log, exp, factorial
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont, QAction
+from PyQt6.QtGui import QFont, QAction, QKeyEvent
 from PyQt6.QtWidgets import (
     QApplication, QLineEdit, QPushButton, QMainWindow,
     QMessageBox, QMenu, QToolBar
@@ -14,7 +14,6 @@ style = """
                 }
                 QPushButton {
                     background-color: #4f18e7;
-
                     color: white;
                 }
                 QPushButton:hover {
@@ -439,6 +438,9 @@ class Advanced_Calculator(QMainWindow):
                 return
 
             if self.first_operand is None or self.operator is None or self.second_operand is None:
+                if self.first_operand is not None:
+                    self.main_label.setText(self.first_operand)
+                    self.secondary_label.clear()
                 return
 
             num1 = float(self.first_operand)
@@ -811,6 +813,96 @@ class Advanced_Calculator(QMainWindow):
                           '<h2>Продвинутый Калькулятор (Advanced_Calculator)</h2>'
                           '<p>Версия 1.0 (Alpha)</p>'
                           '<p>Разработано с помощью PyQt6.</p>')
+
+    # ВВод с клавиатуры
+    def keyPressEvent(self, event: QKeyEvent):
+        key = event.key()
+        text = event.text()
+
+        if key == Qt.Key.Key_Enter or key == Qt.Key.Key_Return:
+            self.calculate_result()
+
+            current_display_text = self.main_label.text()
+            self.main_label.setText(current_display_text)
+
+            event.accept()
+            return
+
+        if key == Qt.Key.Key_Backspace:
+            self.delete_last_char()
+            event.accept()
+            return
+
+        if text == '.':
+            self.append_to_string(text)
+            event.accept()
+            return
+
+        if text in ['+', '-', '*', '÷', '/']:
+            if text == '/':
+                self.append_to_string('÷')
+            else:
+                self.append_to_string(text)
+            event.accept()
+            return
+
+        if text.upper() == 'C':
+            self.clear_all()
+            event.accept()
+            return
+
+        if text.upper() == 'E':
+            self.clear_entry()
+            event.accept()
+            return
+
+        # ------------- ЦИФРЫ -----------------
+        if event.text() == '0':
+            self.append_to_string('0')
+            event.accept()
+            return
+        if event.text() == '1':
+            self.append_to_string('1')
+            event.accept()
+            return
+        if event.text() == '2':
+            self.append_to_string('2')
+            event.accept()
+            return
+        if event.text() == '2':
+            self.append_to_string('2')
+            event.accept()
+            return
+        if event.text() == '3':
+            self.append_to_string('3')
+            event.accept()
+            return
+        if event.text() == '4':
+            self.append_to_string('4')
+            event.accept()
+            return
+        if event.text() == '5':
+            self.append_to_string('5')
+            event.accept()
+            return
+        if event.text() == '6':
+            self.append_to_string('6')
+            event.accept()
+            return
+        if event.text() == '7':
+            self.append_to_string('7')
+            event.accept()
+            return
+        if event.text() == '8':
+            self.append_to_string('8')
+            event.accept()
+            return
+        if event.text() == '9':
+            self.append_to_string('9')
+            event.accept()
+            return
+
+        super().keyPressEvent(event)
 
 
 if __name__ == '__main__':
