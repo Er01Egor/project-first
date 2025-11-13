@@ -17,7 +17,7 @@ style = """
                     color: white;
                 }
                 QPushButton:hover {
-                    background-color: #5d3eb1;
+                    background-color: rgb(44, 53, 130);
                 }
             """
 
